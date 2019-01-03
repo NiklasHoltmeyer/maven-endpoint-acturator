@@ -18,6 +18,17 @@ public class Fakeload {
         return "zeze";
     }
 
+    @GetMapping("/90L")
+    public void l90l(){
+        int coreCount = Runtime.getRuntime().availableProcessors();
+        int threadPerCoreCount = 10;
+        double load = 0.9;
+        int duration = 10000;
+
+        while(true) this.fakeLoad(coreCount, threadPerCoreCount, load, duration);
+    }
+
+
     @GetMapping("/50")
     public String l50(){
         int coreCount = Runtime.getRuntime().availableProcessors();
