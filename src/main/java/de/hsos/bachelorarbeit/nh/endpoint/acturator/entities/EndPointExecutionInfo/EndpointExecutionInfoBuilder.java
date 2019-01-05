@@ -1,13 +1,15 @@
 package de.hsos.bachelorarbeit.nh.endpoint.acturator.entities.EndPointExecutionInfo;
 
+import de.hsos.bachelorarbeit.nh.endpoint.acturator.entities.Unit;
+
 public final class EndpointExecutionInfoBuilder {
     String url;
     String method;
-    ExecutionTime executionTime;
-    Usage cpuUsage;
-    Usage cpuUsageSystem;
-    Usage memoryUsage;
-    Size responseSize;
+    Unit<Long> executionTime;
+    Unit<Double> cpuUsage;
+    Unit<Double> cpuUsageSystem;
+    Unit<Double> memoryUsage;
+    Unit<String> responseSize;
 
     private EndpointExecutionInfoBuilder() {
     }
@@ -26,27 +28,27 @@ public final class EndpointExecutionInfoBuilder {
         return this;
     }
 
-    public EndpointExecutionInfoBuilder withExecutionTime(ExecutionTime executionTime) {
+    public EndpointExecutionInfoBuilder withExecutionTime(Unit<Long> executionTime) {
         this.executionTime = executionTime;
         return this;
     }
 
-    public EndpointExecutionInfoBuilder withCpuUsage(Usage cpuUsage) {
+    public EndpointExecutionInfoBuilder withCpuUsage(Unit<Double> cpuUsage) {
         this.cpuUsage = cpuUsage;
         return this;
     }
 
-    public EndpointExecutionInfoBuilder withCpuUsageSystem(Usage cpuUsageSystem) {
+    public EndpointExecutionInfoBuilder withCpuUsageSystem(Unit<Double> cpuUsageSystem) {
         this.cpuUsageSystem = cpuUsageSystem;
         return this;
     }
 
-    public EndpointExecutionInfoBuilder withMemoryUsage(Usage memoryUsage) {
+    public EndpointExecutionInfoBuilder withMemoryUsage(Unit<Double> memoryUsage) {
         this.memoryUsage = memoryUsage;
         return this;
     }
 
-    public EndpointExecutionInfoBuilder withResponseSize(Size responseSize) {
+    public EndpointExecutionInfoBuilder withResponseSize(Unit<String> responseSize) {
         this.responseSize = responseSize;
         return this;
     }

@@ -1,5 +1,8 @@
 package de.hsos.bachelorarbeit.nh.endpoint.acturator.entities;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class Unit<T>{
     T value;
     String unit;

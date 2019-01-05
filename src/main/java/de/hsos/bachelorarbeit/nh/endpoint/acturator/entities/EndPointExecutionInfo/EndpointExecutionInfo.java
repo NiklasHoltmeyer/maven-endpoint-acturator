@@ -2,18 +2,19 @@ package de.hsos.bachelorarbeit.nh.endpoint.acturator.entities.EndPointExecutionI
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import de.hsos.bachelorarbeit.nh.endpoint.acturator.entities.Unit;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class EndpointExecutionInfo {
     String url;
     String method;
-    ExecutionTime executionTime;
-    Usage cpuUsage;
-    Usage cpuUsageSystem;
-    Usage memoryUsage;
-    Size responseSize;
+    Unit<Long> executionTime;
+    Unit<Double> cpuUsage;
+    Unit<Double> cpuUsageSystem;
+    Unit<Double> memoryUsage;
+    Unit<String> responseSize;
 
-    public EndpointExecutionInfo(String url, String method, ExecutionTime executionTime, Usage cpuUsage, Usage cpuUsageSystem, Usage memoryUsage, Size responseSize) {
+    public EndpointExecutionInfo(String url, String method, Unit<Long> executionTime, Unit<Double> cpuUsage, Unit<Double> cpuUsageSystem, Unit<Double> memoryUsage, Unit<String> responseSize) {
         this.url = url;
         this.method = method;
         this.executionTime = executionTime;
@@ -23,11 +24,11 @@ public class EndpointExecutionInfo {
         this.responseSize = responseSize;
     }
 
-    public Usage getMemoryUsage() {
+    public Unit<Double> getMemoryUsage() {
         return memoryUsage;
     }
 
-    public void setMemoryUsage(Usage memoryUsage) {
+    public void setMemoryUsage(Unit<Double> memoryUsage) {
         this.memoryUsage = memoryUsage;
     }
 
@@ -49,35 +50,35 @@ public class EndpointExecutionInfo {
         this.method = method;
     }
 
-    public ExecutionTime getExecutionTime() {
+    public Unit<Long> getExecutionTime() {
         return executionTime;
     }
 
-    public void setExecutionTime(ExecutionTime executionTime) {
+    public void setExecutionTime(Unit<Long> executionTime) {
         this.executionTime = executionTime;
     }
 
-    public Usage getCpuUsage() {
+    public Unit<Double> getCpuUsage() {
         return cpuUsage;
     }
 
-    public void setCpuUsage(Usage cpuUsage) {
+    public void setCpuUsage(Unit<Double> cpuUsage) {
         this.cpuUsage = cpuUsage;
     }
 
-    public Usage getCpuUsageSystem() {
+    public Unit<Double> getCpuUsageSystem() {
         return cpuUsageSystem;
     }
 
-    public void setCpuUsageSystem(Usage cpuUsageSystem) {
+    public void setCpuUsageSystem(Unit<Double> cpuUsageSystem) {
         this.cpuUsageSystem = cpuUsageSystem;
     }
 
-    public Size getResponseSize() {
+    public Unit<String> getResponseSize() {
         return responseSize;
     }
 
-    public void setResponseSize(Size responseSize) {
+    public void setResponseSize(Unit<String> responseSize) {
         this.responseSize = responseSize;
     }
 

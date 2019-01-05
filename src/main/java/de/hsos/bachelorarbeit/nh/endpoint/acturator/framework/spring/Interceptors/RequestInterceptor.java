@@ -1,6 +1,7 @@
 package de.hsos.bachelorarbeit.nh.endpoint.acturator.framework.spring.Interceptors;
 
 import de.hsos.bachelorarbeit.nh.endpoint.acturator.entities.EndPointExecutionInfo.*;
+import de.hsos.bachelorarbeit.nh.endpoint.acturator.entities.Unit;
 import de.hsos.bachelorarbeit.nh.endpoint.acturator.framework.spring.Acturators.ExecuteInfoActurator;
 import de.hsos.bachelorarbeit.nh.endpoint.acturator.usecases.SystemInfo;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,15 +24,15 @@ public class RequestInterceptor extends HandlerInterceptorAdapter{
             HttpServletRequest request, HttpServletResponse response,
             Object handler, ModelAndView modelAndView)
             throws Exception {
-        ExecutionTime executeTime = getExecuteTime(request);
-        Usage cpuUsage = getCPUUsage(request);
-        Usage cpuSystemUsage = getCPUSystemUsage(request);
-        Usage memUsage = getMemoryUsage(request);
+        Unit<Long> executeTime = getExecuteTime(request);
+        Unit<Double> cpuUsage = getCPUUsage(request);
+        Unit<Double> cpuSystemUsage = getCPUSystemUsage(request);
+        Unit<Double> memUsage = getMemoryUsage(request);
         String url = request.getServletPath();
         String method = request.getMethod();
 
         String cl = response.getHeader("Content-Length");
-        Size responseSize = new Size(cl, "byte(s)");
+        Unit<String> responseSize = new Unit<>(cl, "byte(s)");
 
         EndpointExecutionInfo endpointExecutionInfo = EndpointExecutionInfoBuilder.anEndpointExecutionInfo()
                 .withUrl(url)
@@ -63,36 +64,34 @@ public class RequestInterceptor extends HandlerInterceptorAdapter{
        request.setAttribute("systemCpuLoad", systemCpuLoad);
    }
 
-   private ExecutionTime getExecuteTime(HttpServletRequest request){
+   private Unit<Long> getExecuteTime(HttpServletRequest request){
        long startTime = (Long)request.getAttribute("startTime");
        long executeTime = System.currentTimeMillis() - startTime;
-       return new ExecutionTime(executeTime);
+       return new Unit<>(executeTime,"ms");
    }
 
-   private Usage getCPUUsage(HttpServletRequest request){
+   private Unit<Double> getCPUUsage(HttpServletRequest request){
        double processCpuLoadAfter = SystemInfo.getProcessCpuLoad();
        double processCpuLoadPre = (double)request.getAttribute("processCpuLoad");
 
        double dif = processCpuLoadAfter-processCpuLoadPre;
-
-       return new Usage(dif);
+       return new Unit<>(dif, "%");
    }
 
-   private Usage getCPUSystemUsage(HttpServletRequest request){
+   private Unit<Double> getCPUSystemUsage(HttpServletRequest request){
        double processCpuLoadAfter = SystemInfo.getSystemCpuLoad();
        double processCpuLoadPre = (double)request.getAttribute("systemCpuLoad");
 
        double dif = processCpuLoadAfter-processCpuLoadPre;
 
-       return new Usage(dif);
-   }
+       return new Unit<>(dif, "%");   }
 
-   private Usage getMemoryUsage(HttpServletRequest request){
+   private Unit<Double> getMemoryUsage(HttpServletRequest request){
        long preMem = (long)request.getAttribute("startMemory");
        Runtime runtime = Runtime.getRuntime();
        long mem = runtime.totalMemory() - runtime.freeMemory();
        double difMB = (mem - preMem) / 1e+6;
-       return new Usage(difMB, "MB");
+       return new Unit<>(difMB, "MB");
    }
 
 
