@@ -7,6 +7,7 @@ import de.hsos.bachelorarbeit.nh.endpoint.acturator.entities.Unit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class GroupExecutionInfos {
@@ -34,7 +35,17 @@ public class GroupExecutionInfos {
         Double cpuUsage = list.stream().mapToDouble(x->x.getCpuUsage().getValue()).average().orElse(Double.NaN);
         Double cpuUsageSystem = list.stream().mapToDouble(x->x.getCpuUsageSystem().getValue()).average().orElse(Double.NaN);
         Double memoryUsageSystem = list.stream().mapToDouble(x->x.getMemoryUsage().getValue()).average().orElse(Double.NaN);
-        Double responseSize = list.stream().mapToDouble(x->new Double(x.getResponseSize().getValue())).average().orElse(Double.NaN);
+        Double responseSize = list.stream()
+                .map(x->{
+                    try{
+                        return Double.valueOf(x.getResponseSize().getValue());
+                    }catch(Exception e){
+                        return null;
+                    }
+                })
+                .filter(Objects::nonNull)
+                .mapToDouble(Double::doubleValue)
+                .average().orElse(Double.NaN);
         Double exeTime = list.stream().mapToDouble(x->new Double(x.getExecutionTime().getValue())).average().orElse(Double.NaN);
 
         String cpuUsageUnit = list.get(0).getCpuUsage().getUnit();
