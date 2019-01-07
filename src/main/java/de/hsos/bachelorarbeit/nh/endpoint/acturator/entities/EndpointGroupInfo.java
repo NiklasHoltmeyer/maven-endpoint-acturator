@@ -9,12 +9,12 @@ import java.util.List;
 public class EndpointGroupInfo {
     String url;
     String method;
-    List<EndpointExecutionInfo> endpointExecutionInfos;
+    EndpointExecutionInfo endpointExecutionInfoAveraged;
 
-    public EndpointGroupInfo(String url, String method, List<EndpointExecutionInfo> endpointExecutionInfos) {
+    public EndpointGroupInfo(String url, String method, EndpointExecutionInfo endpointExecutionInfoAveraged) {
         this.url = url;
         this.method = method;
-        this.endpointExecutionInfos = endpointExecutionInfos;
+        this.endpointExecutionInfoAveraged = endpointExecutionInfoAveraged;
     }
 
     public String getUrl() {
@@ -33,11 +33,11 @@ public class EndpointGroupInfo {
         this.method = method;
     }
 
-    public List<EndpointExecutionInfo> getEndpointExecutionInfos() {
-        return endpointExecutionInfos;
+    public EndpointExecutionInfo getEndpointExecutionInfoAveraged() {
+        return endpointExecutionInfoAveraged;
     }
 
-    public void setEndpointExecutionInfos(List<EndpointExecutionInfo> endpointExecutionInfos) {
-        this.endpointExecutionInfos = endpointExecutionInfos;
+    public void setEndpointExecutionInfoAveraged(EndpointExecutionInfo endpointExecutionInfoAveraged) {
+        this.endpointExecutionInfoAveraged = endpointExecutionInfoAveraged;
     }
 }
