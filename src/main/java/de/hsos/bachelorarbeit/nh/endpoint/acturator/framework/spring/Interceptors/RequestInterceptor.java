@@ -17,6 +17,7 @@ public class RequestInterceptor extends HandlerInterceptorAdapter{
         addStartTime(request);
         addStartCPUInfo(request);
         addStartMemoryInfo(request);
+
         return true;
     }
 
@@ -28,6 +29,7 @@ public class RequestInterceptor extends HandlerInterceptorAdapter{
         Unit<Double> cpuUsage = getCPUUsage(request);
         Unit<Double> cpuSystemUsage = getCPUSystemUsage(request);
         Unit<Double> memUsage = getMemoryUsage(request);
+
         String url = request.getServletPath();
         String method = request.getMethod();
 
