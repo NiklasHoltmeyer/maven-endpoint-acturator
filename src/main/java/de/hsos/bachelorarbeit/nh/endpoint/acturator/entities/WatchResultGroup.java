@@ -1,27 +1,27 @@
 package de.hsos.bachelorarbeit.nh.endpoint.acturator.entities;
 
 public class WatchResultGroup {
-    WatchResult<Double> cpuWatchResult;
-    WatchResult<Double> memoryWatchResult;
+    WatchResult<Double> cpu;
+    WatchResult<Double> memory;
 
-    public WatchResultGroup(WatchResult<Double> cpuWatchResult, WatchResult<Double> memoryWatchResult) {
-        this.cpuWatchResult = cpuWatchResult;
-        this.memoryWatchResult = memoryWatchResult;
+    public WatchResultGroup(WatchResult<Double> cpuWatchResult, WatchResult<Double> memory) {
+        this.cpu = cpuWatchResult;
+        this.memory = memory;
     }
 
-    public WatchResult<Double> getCpuWatchResult() {
-        return cpuWatchResult;
+    public WatchResult<Double> getCpu() {
+        return cpu;
     }
 
-    public void setCpuWatchResult(WatchResult<Double> cpuWatchResult) {
-        this.cpuWatchResult = cpuWatchResult;
+    public void setCpu(WatchResult<Double> cpu) {
+        this.cpu = cpu;
     }
 
-    public WatchResult<Double> getMemoryWatchResult() {
-        return memoryWatchResult;
+    public WatchResult<Double> getMemory() {
+        return memory;
     }
 
-    public void setMemoryWatchResult(WatchResult<Double> memoryWatchResult) {
-        this.memoryWatchResult = memoryWatchResult;
+    public void setMemory(WatchResult<Double> memory) {
+        this.memory = memory;
     }
 }

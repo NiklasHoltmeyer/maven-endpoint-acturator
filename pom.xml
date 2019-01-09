@@ -7,7 +7,7 @@
 
   <groupId>local.com.github.NiklasHoltmeyer</groupId>
   <artifactId>maven-endpoint-acturator</artifactId>
-  <version>1.0.0c4</version>
+  <version>1.0.0c5</version>
 
   <dependencies>
     <dependency>
