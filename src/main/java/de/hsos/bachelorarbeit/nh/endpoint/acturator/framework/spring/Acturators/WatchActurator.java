@@ -21,7 +21,7 @@ public class WatchActurator {
         memoryWatch = new MemoryWatch(10);
         new Thread(cPUWatch).start();
         new Thread(memoryWatch).start();
-        return "{\"status\":\"started\"}";
+        return "{\"status\":\"started-hi-\"}";
     }
 
     @GetMapping(value = "/stop", produces = "application/json")

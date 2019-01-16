@@ -6,9 +6,6 @@ public final class EndpointExecutionInfoBuilder {
     String url;
     String method;
     Unit<Long> executionTime;
-    Unit<Double> cpuUsage;
-    Unit<Double> cpuUsageSystem;
-    Unit<Double> memoryUsage;
     Unit<String> responseSize;
 
     private EndpointExecutionInfoBuilder() {
@@ -33,27 +30,12 @@ public final class EndpointExecutionInfoBuilder {
         return this;
     }
 
-    public EndpointExecutionInfoBuilder withCpuUsage(Unit<Double> cpuUsage) {
-        this.cpuUsage = cpuUsage;
-        return this;
-    }
-
-    public EndpointExecutionInfoBuilder withCpuUsageSystem(Unit<Double> cpuUsageSystem) {
-        this.cpuUsageSystem = cpuUsageSystem;
-        return this;
-    }
-
-    public EndpointExecutionInfoBuilder withMemoryUsage(Unit<Double> memoryUsage) {
-        this.memoryUsage = memoryUsage;
-        return this;
-    }
-
     public EndpointExecutionInfoBuilder withResponseSize(Unit<String> responseSize) {
         this.responseSize = responseSize;
         return this;
     }
 
     public EndpointExecutionInfo build() {
-        return new EndpointExecutionInfo(url, method, executionTime, cpuUsage, cpuUsageSystem, memoryUsage, responseSize);
+        return new EndpointExecutionInfo(url, method, executionTime, responseSize);
     }
 }

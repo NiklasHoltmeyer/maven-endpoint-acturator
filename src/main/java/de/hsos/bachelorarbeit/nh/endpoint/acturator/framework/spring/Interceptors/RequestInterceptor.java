@@ -15,9 +15,6 @@ public class RequestInterceptor extends HandlerInterceptorAdapter{
                              HttpServletResponse response, Object handler)
             throws Exception {
         addStartTime(request);
-        addStartCPUInfo(request);
-        addStartMemoryInfo(request);
-
         return true;
     }
 
@@ -26,9 +23,6 @@ public class RequestInterceptor extends HandlerInterceptorAdapter{
             Object handler, ModelAndView modelAndView)
             throws Exception {
         Unit<Long> executeTime = getExecuteTime(request);
-        Unit<Double> cpuUsage = getCPUUsage(request);
-        Unit<Double> cpuSystemUsage = getCPUSystemUsage(request);
-        Unit<Double> memUsage = getMemoryUsage(request);
 
         String url = request.getServletPath();
         String method = request.getMethod();
@@ -40,61 +34,20 @@ public class RequestInterceptor extends HandlerInterceptorAdapter{
                 .withUrl(url)
                 .withMethod(method)
                 .withExecutionTime(executeTime)
-                .withCpuUsage(cpuUsage)
-                .withCpuUsageSystem(cpuSystemUsage)
-                .withMemoryUsage(memUsage)
                 .withResponseSize(responseSize)
                 .build();
         ExecuteInfoActurator.list.add(endpointExecutionInfo);
    }
 
-    private void addStartMemoryInfo(HttpServletRequest request) {
-        Runtime runtime = Runtime.getRuntime();
-        runtime.gc();
-        long memory = runtime.totalMemory() - runtime.freeMemory();
-        request.setAttribute("startMemory", memory);
-    }
-
    private void addStartTime(HttpServletRequest request){
        long startTime = System.currentTimeMillis();
        request.setAttribute("startTime", startTime);
    }
-   private void addStartCPUInfo(HttpServletRequest request){
-       double processCpuLoad = SystemInfo.getProcessCpuLoad();
-       double systemCpuLoad = SystemInfo.getSystemCpuLoad();
-       request.setAttribute("processCpuLoad", processCpuLoad);
-       request.setAttribute("systemCpuLoad", systemCpuLoad);
-   }
+
 
    private Unit<Long> getExecuteTime(HttpServletRequest request){
        long startTime = (Long)request.getAttribute("startTime");
        long executeTime = System.currentTimeMillis() - startTime;
        return new Unit<>(executeTime,"ms");
    }
-
-   private Unit<Double> getCPUUsage(HttpServletRequest request){
-       double processCpuLoadAfter = SystemInfo.getProcessCpuLoad();
-       double processCpuLoadPre = (double)request.getAttribute("processCpuLoad");
-
-       double dif = processCpuLoadAfter-processCpuLoadPre;
-       return new Unit<>(dif, "%");
-   }
-
-   private Unit<Double> getCPUSystemUsage(HttpServletRequest request){
-       double processCpuLoadAfter = SystemInfo.getSystemCpuLoad();
-       double processCpuLoadPre = (double)request.getAttribute("systemCpuLoad");
-
-       double dif = processCpuLoadAfter-processCpuLoadPre;
-
-       return new Unit<>(dif, "%");   }
-
-   private Unit<Double> getMemoryUsage(HttpServletRequest request){
-       long preMem = (long)request.getAttribute("startMemory");
-       Runtime runtime = Runtime.getRuntime();
-       long mem = runtime.totalMemory() - runtime.freeMemory();
-       double difMB = (mem - preMem) / 1e+6;
-       return new Unit<>(difMB, "MB");
-   }
-
-
 }
